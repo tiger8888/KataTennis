@@ -85,37 +85,42 @@ enum GameResult: Printable {
     }
 }
 
+infix operator << { associativity left }
+func << (result: GameResult, player: Player) -> GameResult {
+    switch result {
+    case .OnGoing(var aScore, var bScore):
+        if player == .A {
+            ++aScore
+        } else {
+            ++bScore
+        }
+
+        if aScore == .Win {
+            return .AWin
+        } else if bScore == .Win {
+            return .BWin
+        } else if aScore == .Forty && bScore == .Forty {
+            return .Deuce
+        } else {
+            return .OnGoing(aScore, bScore)
+        }
+    case .Deuce:
+        return player == .A ? .AAdvantage : .BAdvantage
+    case .AAdvantage:
+        return player == .A ? .AWin : .Deuce
+    case .BAdvantage:
+        return player == .A ? .Deuce : .BWin
+    case .AWin, .BWin:
+        return result
+    }
+}
+
 struct TennisGame {
 
     var result: GameResult = .OnGoing(.Love, .Love)
 
     mutating func playerScored(player: Player) {
-        switch result {
-        case .OnGoing(var aScore, var bScore):
-            if player == .A {
-                ++aScore
-            } else {
-                ++bScore
-            }
-
-            if aScore == .Win {
-                result = .AWin
-            } else if bScore == .Win {
-                result = .BWin
-            } else if aScore == .Forty && bScore == .Forty {
-                result = .Deuce
-            } else {
-                result = .OnGoing(aScore, bScore)
-            }
-        case .Deuce:
-            result = player == .A ? .AAdvantage : .BAdvantage
-        case .AAdvantage:
-            result = player == .A ? .AWin : .Deuce
-        case .BAdvantage:
-            result = player == .A ? .Deuce : .BWin
-        case .AWin, .BWin:
-            return
-        }
+        result = result << player
     }
 
     mutating func playerScored(players: [Player]) {
