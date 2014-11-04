@@ -59,48 +59,62 @@ prefix func ++ (inout score: Score) -> Score {
     return score
 }
 
+enum GameResult: Printable {
+    case OnGoing(Score, Score)
+    case Deuce
+    case AAdvantage
+    case BAdvantage
+    case AWin
+    case BWin
+
+    var description: String {
+        switch self {
+        case .OnGoing(let aScore, let bScore):
+            return aScore.description + " " + bScore.description
+        case .Deuce:
+            return "Deuce"
+        case .AAdvantage:
+            return "A advantage"
+        case .BAdvantage:
+            return "B advantage"
+        case .AWin:
+            return "A wins!"
+        case .BWin:
+            return "B wins!"
+        }
+    }
+}
+
 struct TennisGame {
 
-    typealias Scores = (A: Score, B: Score)
-    typealias Advantage = (A: Bool, B: Bool)
-
-    var scores: Scores = (.Love, .Love)
-    var advantage: Advantage = (false, false)
+    var result: GameResult = .OnGoing(.Love, .Love)
 
     mutating func playerScored(player: Player) {
-        switch scores {
-        case (.Forty, .Forty):
+        switch result {
+        case .OnGoing(var aScore, var bScore):
             if player == .A {
-                if advantage.A {
-                    advantage = (false, false)
-                    ++scores.A
-                } else if advantage.B {
-                    advantage = (false, false)
-                } else {
-                    advantage = (true, false)
-                }
+                ++aScore
             } else {
-                if advantage.B {
-                    advantage = (false, false)
-                    ++scores.B
-                } else if advantage.A {
-                    advantage = (false, false)
-                } else {
-                    advantage = (false, true)
-                }
+                ++bScore
             }
-            return
-        case (.Win, _), (_, .Win):
-            return
-        case (_, _):
-            break
-        }
 
-        switch player {
-        case .A:
-            ++scores.A
-        case .B:
-            ++scores.B
+            if aScore == .Win {
+                result = .AWin
+            } else if bScore == .Win {
+                result = .BWin
+            } else if aScore == .Forty && bScore == .Forty {
+                result = .Deuce
+            } else {
+                result = .OnGoing(aScore, bScore)
+            }
+        case .Deuce:
+            result = player == .A ? .AAdvantage : .BAdvantage
+        case .AAdvantage:
+            result = player == .A ? .AWin : .Deuce
+        case .BAdvantage:
+            result = player == .A ? .Deuce : .BWin
+        case .AWin, .BWin:
+            return
         }
     }
 
@@ -111,19 +125,6 @@ struct TennisGame {
     }
 
     func showScore() -> String {
-        switch scores {
-        case (.Forty, .Forty):
-            switch advantage {
-            case (true, _): return "A advantage"
-            case (_, true): return "B advantage"
-            case (_, _): return "Deuce"
-            }
-        case (.Win, _):
-            return "A wins!"
-        case (_, .Win):
-            return "B wins!"
-        case (_, _):
-            return scores.A.description + " " + scores.B.description
-        }
+        return result.description
     }
 }
