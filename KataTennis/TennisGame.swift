@@ -14,34 +14,50 @@ enum Player {
 }
 
 enum Score:Int, Printable {
-    case Love = 0
-    case Fifteen = 1
-    case Thirty = 2
-    case Forty = 3
-    case Win = 4
+    case Love, Fifteen, Thirty, Forty, Win
 
     var description: String {
-        get {
-            switch self {
-            case .Love: return "Love"
-            case .Fifteen: return "Fifteen"
-            case .Thirty: return "Thirty"
-            case .Forty: return "Forty"
-            case .Win: return "Win"
-            }
-        }
-    }
-
-    func advance() -> Score {
-        if self == .Win {
-            return .Win
-        } else {
-            return Score(rawValue: self.rawValue + 1)!
-        }
+        let names = ["Love", "Fifteen", "Thirty", "Forty", "Win"]
+        return names[self.rawValue]
     }
 }
 
+extension Score {
+    static var allCases: [Score] {
+        return Array(
+            SequenceOf {
+                () -> GeneratorOf<Score> in
+                var cur = 0
+                return GeneratorOf<Score> {
+                    return Score(rawValue: cur++)
+                }
+            }
+        )
+    }
+}
 
+extension Score {
+    static var maximumRawValue: Int {
+        var max: Int = 0
+        while let _ = self(rawValue: ++max) {}
+        return max
+    }
+
+    static func randomCase() -> Score {
+        let randomValue = Int(arc4random_uniform(UInt32(maximumRawValue)))
+        return self(rawValue: randomValue)!
+    }
+}
+
+prefix operator ++ { }
+prefix func ++ (inout score: Score) -> Score {
+    var value = score.rawValue
+    if value < Score.maximumRawValue {
+        ++value
+    }
+    score = Score(rawValue: value)!
+    return score
+}
 
 struct TennisGame {
 
@@ -57,7 +73,7 @@ struct TennisGame {
             if player == .A {
                 if advantage.A {
                     advantage = (false, false)
-                    scores.A = scores.A.advance()
+                    ++scores.A
                 } else if advantage.B {
                     advantage = (false, false)
                 } else {
@@ -66,7 +82,7 @@ struct TennisGame {
             } else {
                 if advantage.B {
                     advantage = (false, false)
-                    scores.B = scores.B.advance()
+                    ++scores.B
                 } else if advantage.A {
                     advantage = (false, false)
                 } else {
@@ -80,9 +96,9 @@ struct TennisGame {
 
         switch player {
         case .A:
-            scores.A = scores.A.advance()
+            ++scores.A
         case .B:
-            scores.B = scores.B.advance()
+            ++scores.B
         }
     }
 
