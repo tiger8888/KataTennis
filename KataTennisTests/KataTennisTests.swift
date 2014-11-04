@@ -20,17 +20,89 @@ class KataTennisTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+
+    func testLoveLove() {
+        let game = TennisGame()
+        XCTAssertEqual("Love Love", game.showScore(), "")
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+
+    func testLoveWin() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+
+        XCTAssertEqual("B wins!", game.showScore(), "")
     }
-    
+
+    func testDeuce() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+
+        XCTAssertEqual("Deuce", game.showScore(), "")
+    }
+
+    func testBAdvantage() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.B)
+
+        XCTAssertEqual("B advantage", game.showScore(), "")
+    }
+
+    func testDeuceAgain() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.B)
+        game.playerScored(.A)
+
+        XCTAssertEqual("Deuce", game.showScore(), "")
+    }
+
+    func testAAdvantageAfterBAdvantage() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+
+        XCTAssertEqual("A advantage", game.showScore(), "")
+    }
+
+    func testAWinAfterBAdvantage() {
+        var game = TennisGame()
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.B)
+        game.playerScored(.A)
+        game.playerScored(.A)
+        game.playerScored(.A)
+
+        XCTAssertEqual("A wins!", game.showScore(), "")
+    }
 }

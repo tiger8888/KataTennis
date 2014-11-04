@@ -12,6 +12,8 @@
 		1FB5E9F51A08C15F00595F37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB5E9F41A08C15F00595F37 /* Images.xcassets */; };
 		1FB5E9F81A08C15F00595F37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB5E9F61A08C15F00595F37 /* Main.storyboard */; };
 		1FB5EA041A08C15F00595F37 /* KataTennisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB5EA031A08C15F00595F37 /* KataTennisTests.swift */; };
+		1FB5EA0E1A08C1CA00595F37 /* TennisGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB5EA0D1A08C1CA00595F37 /* TennisGame.swift */; };
+		1FB5EA0F1A08C76700595F37 /* TennisGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB5EA0D1A08C1CA00595F37 /* TennisGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 		1FB5E9FD1A08C15F00595F37 /* KataTennisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KataTennisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FB5EA021A08C15F00595F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FB5EA031A08C15F00595F37 /* KataTennisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KataTennisTests.swift; sourceTree = "<group>"; };
+		1FB5EA0D1A08C1CA00595F37 /* TennisGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TennisGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,7 @@
 			children = (
 				1FB5E9F01A08C15F00595F37 /* AppDelegate.swift */,
 				1FB5E9F21A08C15F00595F37 /* ViewController.swift */,
+				1FB5EA0D1A08C1CA00595F37 /* TennisGame.swift */,
 				1FB5E9F41A08C15F00595F37 /* Images.xcassets */,
 				1FB5E9F61A08C15F00595F37 /* Main.storyboard */,
 				1FB5E9EE1A08C15F00595F37 /* Supporting Files */,
@@ -161,7 +165,6 @@
 					};
 					1FB5E9FC1A08C15F00595F37 = {
 						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 1FB5E9EA1A08C15F00595F37;
 					};
 				};
 			};
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FB5E9F31A08C15F00595F37 /* ViewController.swift in Sources */,
+				1FB5EA0E1A08C1CA00595F37 /* TennisGame.swift in Sources */,
 				1FB5E9F11A08C15F00595F37 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB5EA0F1A08C76700595F37 /* TennisGame.swift in Sources */,
 				1FB5EA041A08C15F00595F37 /* KataTennisTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,7 +350,6 @@
 		1FB5EA0B1A08C15F00595F37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -358,14 +362,12 @@
 				INFOPLIST_FILE = KataTennisTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KataTennis.app/Contents/MacOS/KataTennis";
 			};
 			name = Debug;
 		};
 		1FB5EA0C1A08C15F00595F37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -374,7 +376,6 @@
 				INFOPLIST_FILE = KataTennisTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KataTennis.app/Contents/MacOS/KataTennis";
 			};
 			name = Release;
 		};
