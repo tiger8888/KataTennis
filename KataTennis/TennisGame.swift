@@ -90,6 +90,8 @@ struct TennisGame {
                 }
             }
             return
+        case (.Win, _), (_, .Win):
+            return
         case (_, _):
             break
         }

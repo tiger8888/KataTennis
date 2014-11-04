@@ -67,4 +67,11 @@ class KataTennisTests: XCTestCase {
 
         XCTAssertEqual("A wins!", game.showScore(), "")
     }
+
+    func testNothingHappenAfterBWin() {
+        var game = TennisGame()
+        game.playerScored([.B, .B, .B, .B, .A, .A, .A, .B, .A, .A, .A])
+
+        XCTAssertEqual("B wins!", game.showScore(), "")
+    }
 }
