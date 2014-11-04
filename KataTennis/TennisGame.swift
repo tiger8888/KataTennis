@@ -114,8 +114,3 @@ func <<< (result: TennisGame, player: Player) -> TennisGame {
         return result
     }
 }
-
-//infix operator << { associativity left precedence 150 }
-//func << (player1: Player, player2: Player) -> [Player] {
-//    return [player1, player2]
-//}
