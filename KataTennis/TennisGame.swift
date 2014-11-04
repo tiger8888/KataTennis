@@ -59,7 +59,7 @@ prefix func ++ (inout score: Score) -> Score {
     return score
 }
 
-enum GameResult: Printable {
+enum TennisGame: Printable {
     case OnGoing(Score, Score)
     case Deuce
     case AAdvantage
@@ -85,8 +85,8 @@ enum GameResult: Printable {
     }
 }
 
-infix operator << { associativity left }
-func << (result: GameResult, player: Player) -> GameResult {
+infix operator <<< { associativity left precedence 140 }
+func <<< (result: TennisGame, player: Player) -> TennisGame {
     switch result {
     case .OnGoing(var aScore, var bScore):
         if player == .A {
@@ -115,21 +115,7 @@ func << (result: GameResult, player: Player) -> GameResult {
     }
 }
 
-struct TennisGame {
-
-    var result: GameResult = .OnGoing(.Love, .Love)
-
-    mutating func playerScored(player: Player) {
-        result = result << player
-    }
-
-    mutating func playerScored(players: [Player]) {
-        for player in players {
-            playerScored(player)
-        }
-    }
-
-    func showScore() -> String {
-        return result.description
-    }
-}
+//infix operator << { associativity left precedence 150 }
+//func << (player1: Player, player2: Player) -> [Player] {
+//    return [player1, player2]
+//}

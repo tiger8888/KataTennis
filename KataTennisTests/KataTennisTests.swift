@@ -22,56 +22,57 @@ class KataTennisTests: XCTestCase {
     }
 
     func testLoveLove() {
-        let game = TennisGame()
-        XCTAssertEqual("Love Love", game.showScore(), "")
+        let game = TennisGame.OnGoing(.Love, .Love)
+        XCTAssertEqual("Love Love", game.description, "")
     }
 
     func testLoveWin() {
-        var game = TennisGame()
-        game.playerScored(Array(count: 4, repeatedValue: .B))
+        var game = TennisGame.OnGoing(.Love, .Love)
+        game = game <<< .B <<< .B <<< .B <<< .B
 
-        XCTAssertEqual("B wins!", game.showScore(), "")
+        XCTAssertEqual("B wins!", game.description, "")
     }
 
     func testDeuce() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .A, .A, .A])
+        var game = TennisGame.OnGoing(.Thirty, .Thirty)
+        game = game <<< .A <<< .B
 
-        XCTAssertEqual("Deuce", game.showScore(), "")
+        XCTAssertEqual("Deuce", game.description, "")
     }
 
     func testBAdvantage() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .A, .A, .A, .B])
+        var game = TennisGame.OnGoing(.Thirty, .Thirty)
+        game = game <<< .A <<< .B <<< .B
 
-        XCTAssertEqual("B advantage", game.showScore(), "")
+        XCTAssertEqual("B advantage", game.description, "")
     }
 
     func testDeuceAgain() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .A, .A, .A, .B, .A])
+        var game = TennisGame.OnGoing(.Thirty, .Thirty)
+        game = game <<< .A <<< .B <<< .B <<< .A
 
-        XCTAssertEqual("Deuce", game.showScore(), "")
+        XCTAssertEqual("Deuce", game.description, "")
     }
 
     func testAAdvantageAfterBAdvantage() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .A, .A, .A, .B, .A, .A])
+        var game = TennisGame.BAdvantage
+        game = game <<< .A <<< .A
 
-        XCTAssertEqual("A advantage", game.showScore(), "")
+        XCTAssertEqual("A advantage", game.description, "")
     }
 
     func testAWinAfterBAdvantage() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .A, .A, .A, .B, .A, .A, .A])
+        var game = TennisGame.BAdvantage
+        game = game <<< .A <<< .A <<< .A
 
-        XCTAssertEqual("A wins!", game.showScore(), "")
+        XCTAssertEqual("A wins!", game.description, "")
     }
 
     func testNothingHappenAfterBWin() {
-        var game = TennisGame()
-        game.playerScored([.B, .B, .B, .B, .A, .A, .A, .B, .A, .A, .A])
+        var game = TennisGame.BWin
+        game = game <<< .A <<< .B <<< .A <<< .B
 
-        XCTAssertEqual("B wins!", game.showScore(), "")
+        XCTAssertEqual("B wins!", game.description, "")
     }
+
 }
