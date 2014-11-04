@@ -29,7 +29,7 @@ extension Score {
                 () -> GeneratorOf<Score> in
                 var cur = 0
                 return GeneratorOf<Score> {
-                    return Score(rawValue: cur++)
+                    return self(rawValue: cur++)
                 }
             }
         )
@@ -99,6 +99,12 @@ struct TennisGame {
             ++scores.A
         case .B:
             ++scores.B
+        }
+    }
+
+    mutating func playerScored(players: [Player]) {
+        for player in players {
+            playerScored(player)
         }
     }
 
