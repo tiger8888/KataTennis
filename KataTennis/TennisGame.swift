@@ -49,14 +49,13 @@ extension Score {
     }
 }
 
-prefix operator ++ { }
-prefix func ++ (inout score: Score) -> Score {
+prefix operator ^^ { }
+prefix func ^^ (score: Score) -> Score {
     var value = score.rawValue
     if value < Score.maximumRawValue {
         ++value
     }
-    score = Score(rawValue: value)!
-    return score
+    return Score(rawValue: value)!
 }
 
 enum TennisGame: Printable {
@@ -90,9 +89,9 @@ func <<< (result: TennisGame, player: Player) -> TennisGame {
     switch result {
     case .OnGoing(var aScore, var bScore):
         if player == .A {
-            ++aScore
+            aScore = ^^aScore
         } else {
-            ++bScore
+            bScore = ^^bScore
         }
 
         if aScore == .Win {
