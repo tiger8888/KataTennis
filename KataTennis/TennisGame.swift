@@ -69,17 +69,21 @@ enum TennisGame: Printable {
     var description: String {
         switch self {
         case .OnGoing(let aScore, let bScore):
-            return aScore.description + " " + bScore.description
+            if aScore == bScore {
+                return aScore.description + "-All"
+            } else {
+                return aScore.description + "-" + bScore.description
+            }
         case .Deuce:
             return "Deuce"
         case .AAdvantage:
-            return "A advantage"
+            return "Advantage A"
         case .BAdvantage:
-            return "B advantage"
+            return "Advantage B"
         case .AWin:
-            return "A wins!"
+            return "Game A"
         case .BWin:
-            return "B wins!"
+            return "Game B"
         }
     }
 }

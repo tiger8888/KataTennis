@@ -23,14 +23,14 @@ class KataTennisTests: XCTestCase {
 
     func testLoveLove() {
         let game = TennisGame.OnGoing(.Love, .Love)
-        XCTAssertEqual("Love Love", game.description, "")
+        XCTAssertEqual("Love-All", game.description, "")
     }
 
     func testLoveWin() {
         var game = TennisGame.OnGoing(.Love, .Love)
         game = game <<< .B <<< .B <<< .B <<< .B
 
-        XCTAssertEqual("B wins!", game.description, "")
+        XCTAssertEqual("Game B", game.description, "")
     }
 
     func testDeuce() {
@@ -44,7 +44,7 @@ class KataTennisTests: XCTestCase {
         var game = TennisGame.OnGoing(.Thirty, .Thirty)
         game = game <<< .A <<< .B <<< .B
 
-        XCTAssertEqual("B advantage", game.description, "")
+        XCTAssertEqual("Advantage B", game.description, "")
     }
 
     func testDeuceAgain() {
@@ -58,21 +58,21 @@ class KataTennisTests: XCTestCase {
         var game = TennisGame.BAdvantage
         game = game <<< .A <<< .A
 
-        XCTAssertEqual("A advantage", game.description, "")
+        XCTAssertEqual("Advantage A", game.description, "")
     }
 
     func testAWinAfterBAdvantage() {
         var game = TennisGame.BAdvantage
         game = game <<< .A <<< .A <<< .A
 
-        XCTAssertEqual("A wins!", game.description, "")
+        XCTAssertEqual("Game A", game.description, "")
     }
 
     func testNothingHappenAfterBWin() {
         var game = TennisGame.BWin
         game = game <<< .A <<< .B <<< .A <<< .B
 
-        XCTAssertEqual("B wins!", game.description, "")
+        XCTAssertEqual("Game B", game.description, "")
     }
 
 }
